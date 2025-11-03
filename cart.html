@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Example function to calculate the total price
+    function updateCartTotal() {
+      const items = document.querySelectorAll(".cart-item");
+      let total = 0;
+      items.forEach(item => {
+        const price = parseFloat(item.querySelector(".item-price").innerText.replace('$', ''));
+        const quantity = parseInt(item.querySelector(".item-quantity").value);
+        total += price * quantity;
+      });
+      document.getElementById("cart-total").innerText = "$" + total.toFixed(2);
+    }
+
+    // Example function to remove an item from the cart
+    function removeItem(event) {
+      const item = event.target.closest(".cart-item");
+      item.remove();
+      updateCartTotal(); // Recalculate the total
+    }
+  </script>
+</head>
+<body>
+
+  <div class="cart-container">
+    <h1>Your Shopping Cart</h1>
+
+    <!-- Cart Items -->
+    <div class="cart-item">
+      <img src="https://via.placeholder.com/100" alt="Product Image" class="item-image">
+      <div class="item-details">
+        <h3 class="item-name">Product 1</h3>
+        <p class="item-price">$19.99</p>
+        <label for="quantity1">Quantity:</label>
+        <input type="number" id="quantity1" class="item-quantity" value="1" min="1" onchange="updateCartTotal()">
+        <button onclick="removeItem(event)">Remove</button>
+      </div>
+    </div>
+
+    <div class="cart-item">
+      <img src="https://via.placeholder.com/100" alt="Product Image" class="item-image">
+      <div class="item-details">
+        <h3 class="item-name">Product 2</h3>
+        <p class="item-price">$29.99</p>
+        <label for="quantity2">Quantity:</label>
+        <input type="number" id="quantity2" class="item-quantity" value="1" min="1" onchange="updateCartTotal()">
+        <button onclick="removeItem(event)">Remove</button>
+      </div>
+    </div>
+
+    <!-- Cart Total -->
+    <div class="cart-total">
+      <h3>Total: <span id="cart-total">$49.98</span></h3>
+    </div>
+
+    <!-- Checkout Button -->
+    <div class="checkout">
+      <button onclick="alert('Proceeding to checkout...')">Proceed to Checkout</button>
+    </div>
+  </div>
+
+</body>
+</html>
